@@ -11,6 +11,8 @@ jobs:
         with: { distribution: 'temurin', java-version: '17' }
       - uses: android-actions/setup-android@v4
       - uses: gradle/actions/setup-gradle@v3
+        with:
+          gradle-version: 8.2
       - name: Build Master
         run: gradle :master:assembleRelease --no-daemon
       - name: Build Slave
