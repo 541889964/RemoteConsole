@@ -6,86 +6,349 @@
     android:layout_height="match_parent"
     android:background="@color/bg_primary">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:background="@android:color/transparent" app:elevation="0dp">
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent" android:layout_height="?attr/actionBarSize"
-            android:paddingStart="20dp" android:paddingEnd="20dp"
-            app:title="控制台" app:titleTextColor="@color/text_primary"/>
-    </com.google.android.material.appbar.AppBarLayout>
-
     <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent" android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:orientation="vertical" android:padding="20dp">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="80dp"
+        android:clipToPadding="false">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingTop="48dp">
+
+            <!-- 顶部：问候语 + 头像 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:text="下午好 👋"
+                        android:textSize="12sp"
+                        android:textColor="@color/text_tertiary"
+                        android:letterSpacing="0.08"/>
+
+                    <TextView
+                        android:text="控制台"
+                        android:textSize="26sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/text_primary"
+                        android:letterSpacing="0.02"
+                        android:layout_marginTop="4dp"/>
+                </LinearLayout>
+
+                <FrameLayout
+                    android:id="@+id/btnNotification"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/bg_icon_circle"
+                    android:layout_marginEnd="12dp">
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_notification"
+                        app:tint="@color/text_secondary"/>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="44dp"
+                    android:layout_height="44dp">
+                    <View
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        android:background="@drawable/shape_avatar_ring"/>
+                    <TextView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="U"
+                        android:textStyle="bold"
+                        android:textSize="15sp"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/bg_avatar_gradient"/>
+                </FrameLayout>
+            </LinearLayout>
+
+            <!-- 统计卡片 -->
             <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:id="@+id/statCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
                 app:cardBackgroundColor="@color/bg_card"
-                app:cardCornerRadius="20dp" app:cardElevation="0dp"
-                app:strokeColor="@color/stroke" app:strokeWidth="1dp">
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                    android:orientation="horizontal" android:padding="20dp"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/stroke"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="24dp"
                     android:gravity="center_vertical">
-                    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
-                        android:layout_weight="1" android:orientation="vertical">
-                        <TextView android:text="在线设备" android:textSize="12sp"
-                            android:textColor="@color/text_tertiary" android:letterSpacing="0.1"/>
-                        <TextView android:id="@+id/tvDeviceCount" android:text="0"
-                            android:textSize="36sp" android:textStyle="bold"
-                            android:textColor="@color/text_primary" android:layout_marginTop="4dp"/>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:text="在线设备"
+                            android:textSize="12sp"
+                            android:textColor="@color/text_tertiary"
+                            android:letterSpacing="0.15"/>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="bottom"
+                            android:layout_marginTop="6dp">
+
+                            <TextView
+                                android:id="@+id/tvDeviceCount"
+                                android:text="0"
+                                android:textSize="42sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/text_primary"
+                                android:letterSpacing="-0.02"/>
+
+                            <TextView
+                                android:text=" 台"
+                                android:textSize="14sp"
+                                android:textColor="@color/text_tertiary"
+                                android:layout_marginBottom="8dp"/>
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/tvStatusHint"
+                            android:text="点击右侧开始扫描局域网"
+                            android:textSize="10sp"
+                            android:textColor="@color/text_quaternary"
+                            android:layout_marginTop="4dp"/>
                     </LinearLayout>
-                    <FrameLayout android:id="@+id/btnScan"
-                        android:layout_width="56dp" android:layout_height="56dp"
-                        android:background="@drawable/bg_btn_scan">
-                        <ImageView android:layout_width="24dp" android:layout_height="24dp"
+
+                    <!-- 扫描按钮：带脉冲光圈 -->
+                    <FrameLayout
+                        android:layout_width="72dp"
+                        android:layout_height="72dp">
+
+                        <View
+                            android:id="@+id/pulseRing1"
+                            android:layout_width="72dp"
+                            android:layout_height="72dp"
+                            android:background="@drawable/shape_pulse_ring"
+                            android:alpha="0.6"/>
+
+                        <View
+                            android:id="@+id/pulseRing2"
+                            android:layout_width="72dp"
+                            android:layout_height="72dp"
+                            android:background="@drawable/shape_pulse_ring"
+                            android:alpha="0.3"/>
+
+                        <FrameLayout
+                            android:id="@+id/btnScan"
+                            android:layout_width="56dp"
+                            android:layout_height="56dp"
                             android:layout_gravity="center"
-                            android:src="@drawable/ic_radar" app:tint="@color/accent"/>
+                            android:background="@drawable/bg_btn_scan_gradient">
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_radar"
+                                app:tint="#FFFFFF"/>
+                        </FrameLayout>
                     </FrameLayout>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <TextView android:text="发现设备" android:textSize="14sp"
-                android:textStyle="bold" android:textColor="@color/text_secondary"
-                android:letterSpacing="0.15" android:layout_marginTop="28dp"
-                android:layout_marginBottom="14dp"/>
+            <!-- 区块标题 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="16dp">
 
-            <androidx.recyclerview.widget.RecyclerView android:id="@+id/rvDevices"
-                android:layout_width="match_parent" android:layout_height="wrap_content"
+                <View
+                    android:layout_width="3dp"
+                    android:layout_height="14dp"
+                    android:background="@drawable/bg_accent_bar"/>
+
+                <TextView
+                    android:text="发现设备"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_secondary"
+                    android:letterSpacing="0.15"
+                    android:layout_marginStart="10dp"/>
+
+                <TextView
+                    android:id="@+id/tvDeviceHint"
+                    android:text=""
+                    android:textSize="11sp"
+                    android:textColor="@color/text_quaternary"
+                    android:layout_marginStart="8dp"/>
+            </LinearLayout>
+
+            <!-- 设备列表 -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvDevices"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:nestedScrollingEnabled="false"/>
+
+            <!-- 空态 -->
+            <LinearLayout
+                android:id="@+id/layoutEmpty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:paddingTop="40dp"
+                android:paddingBottom="40dp"
+                android:visibility="gone">
+
+                <FrameLayout
+                    android:layout_width="96dp"
+                    android:layout_height="96dp">
+                    <View
+                        android:layout_width="96dp"
+                        android:layout_height="96dp"
+                        android:background="@drawable/shape_empty_glow"/>
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_empty_devices"
+                        app:tint="@color/text_quaternary"/>
+                </FrameLayout>
+
+                <TextView
+                    android:text="暂无设备"
+                    android:textSize="14sp"
+                    android:textColor="@color/text_tertiary"
+                    android:layout_marginTop="14dp"/>
+
+                <TextView
+                    android:text="点击右上角雷达开始扫描"
+                    android:textSize="11sp"
+                    android:textColor="@color/text_quaternary"
+                    android:layout_marginTop="6dp"/>
+            </LinearLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <LinearLayout android:id="@+id/bottomBar"
-        android:layout_width="match_parent" android:layout_height="64dp"
-        android:layout_gravity="bottom" android:orientation="horizontal"
+    <!-- 底部导航（自定义） -->
+    <LinearLayout
+        android:id="@+id/bottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal"
         android:background="@drawable/bg_bottom_bar"
-        android:paddingStart="20dp" android:paddingEnd="20dp"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
         android:gravity="center_vertical">
-        <LinearLayout android:layout_width="0dp" android:layout_height="match_parent"
-            android:layout_weight="1" android:orientation="vertical" android:gravity="center">
-            <ImageView android:layout_width="22dp" android:layout_height="22dp"
-                android:src="@drawable/ic_console" app:tint="@color/accent"/>
-            <TextView android:text="控制台" android:textSize="10sp"
-                android:textColor="@color/accent" android:layout_marginTop="2dp"/>
+
+        <LinearLayout
+            android:id="@+id/tabConsole"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackgroundBorderless">
+
+            <ImageView
+                android:id="@+id/ivConsole"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_console_active"
+                app:tint="@color/accent"/>
+
+            <TextView
+                android:id="@+id/tvConsole"
+                android:text="控制台"
+                android:textSize="10sp"
+                android:textColor="@color/accent"
+                android:textStyle="bold"
+                android:layout_marginTop="3dp"
+                android:letterSpacing="0.05"/>
         </LinearLayout>
-        <LinearLayout android:id="@+id/tabCall" android:layout_width="0dp"
-            android:layout_height="match_parent" android:layout_weight="1"
-            android:orientation="vertical" android:gravity="center">
-            <ImageView android:layout_width="22dp" android:layout_height="22dp"
-                android:src="@drawable/ic_call" app:tint="@color/text_tertiary"/>
-            <TextView android:text="通话" android:textSize="10sp"
-                android:textColor="@color/text_tertiary" android:layout_marginTop="2dp"/>
+
+        <LinearLayout
+            android:id="@+id/tabCall"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackgroundBorderless">
+
+            <ImageView
+                android:id="@+id/ivCall"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_call"
+                app:tint="@color/text_tertiary"/>
+
+            <TextView
+                android:id="@+id/tvCall"
+                android:text="通话"
+                android:textSize="10sp"
+                android:textColor="@color/text_tertiary"
+                android:layout_marginTop="3dp"
+                android:letterSpacing="0.05"/>
         </LinearLayout>
-        <LinearLayout android:layout_width="0dp" android:layout_height="match_parent"
-            android:layout_weight="1" android:orientation="vertical" android:gravity="center">
-            <ImageView android:layout_width="22dp" android:layout_height="22dp"
-                android:src="@drawable/ic_settings" app:tint="@color/text_tertiary"/>
-            <TextView android:text="设置" android:textSize="10sp"
-                android:textColor="@color/text_tertiary" android:layout_marginTop="2dp"/>
+
+        <LinearLayout
+            android:id="@+id/tabSettings"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackgroundBorderless">
+
+            <ImageView
+                android:id="@+id/ivSettings"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_settings"
+                app:tint="@color/text_tertiary"/>
+
+            <TextView
+                android:id="@+id/tvSettings"
+                android:text="设置"
+                android:textSize="10sp"
+                android:textColor="@color/text_tertiary"
+                android:layout_marginTop="3dp"
+                android:letterSpacing="0.05"/>
         </LinearLayout>
     </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

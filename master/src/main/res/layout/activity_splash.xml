@@ -6,68 +6,162 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_splash_gradient">
 
-    <View android:layout_width="320dp" android:layout_height="320dp"
+    <!-- 粒子层 -->
+    <com.master.remote.widget.ParticleView
+        android:id="@+id/particleView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0"/>
+
+    <!-- 顶部光晕 -->
+    <View
+        android:id="@+id/glowView"
+        android:layout_width="380dp"
+        android:layout_height="380dp"
         android:background="@drawable/shape_glow_circle"
-        android:translationY="-120dp"
+        android:translationY="-160dp"
+        android:alpha="0"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/lottieLogo"
-        android:layout_width="220dp" android:layout_height="220dp"
+    <!-- 旋转外环 -->
+    <View
+        android:id="@+id/ringView"
+        android:layout_width="260dp"
+        android:layout_height="260dp"
+        android:background="@drawable/shape_dashed_ring"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintVertical_bias="0.38"/>
+        app:layout_constraintVertical_bias="0.36"/>
 
-    <TextView android:id="@+id/tvBrand"
-        android:layout_width="wrap_content" android:layout_height="wrap_content"
-        android:text="REMOTE CONSOLE" android:textSize="22sp"
-        android:letterSpacing="0.35" android:textStyle="bold"
-        android:textColor="#FFFFFF" android:fontFamily="sans-serif-medium"
+    <!-- Lottie Logo -->
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieLogo"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_bias="0.36"/>
+
+    <!-- 品牌名（逐字符动画：用 3 段 TextView 分片） -->
+    <LinearLayout
+        android:id="@+id/brandContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="12dp"
         app:layout_constraintTop_toBottomOf="@id/lottieLogo"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"/>
+        app:layout_constraintEnd_toEndOf="parent">
 
-    <TextView android:id="@+id/tvSubtitle"
-        android:layout_width="wrap_content" android:layout_height="wrap_content"
-        android:text="局域网多设备协同控制" android:textSize="12sp"
-        android:letterSpacing="0.15" android:textColor="#8A94B8"
-        app:layout_constraintTop_toBottomOf="@id/tvBrand"
+        <TextView
+            android:id="@+id/tvBrand1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="REMOTE "
+            android:textSize="22sp"
+            android:letterSpacing="0.35"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:fontFamily="sans-serif-medium"
+            android:shadowColor="#4A6BFF"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="20"
+            android:alpha="0"/>
+        <TextView
+            android:id="@+id/tvBrand2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CONSOLE"
+            android:textSize="22sp"
+            android:letterSpacing="0.35"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-medium"
+            android:shadowColor="#7A5BFF"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="20"
+            android:textColor="#7A5BFF"
+            android:alpha="0"/>
+    </LinearLayout>
+
+    <!-- 副标题 -->
+    <TextView
+        android:id="@+id/tvSubtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="局域网多设备协同控制"
+        android:textSize="11sp"
+        android:letterSpacing="0.25"
+        android:textColor="#8A94B8"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/brandContainer"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="6dp"/>
+        app:layout_constraintEnd_toEndOf="parent"/>
 
-    <FrameLayout android:id="@+id/progressContainer"
-        android:layout_width="200dp" android:layout_height="3dp"
-        android:background="#1E2A4A" android:layout_marginTop="52dp"
+    <!-- 装饰分隔线（从中心展开） -->
+    <View
+        android:id="@+id/dividerView"
+        android:layout_width="120dp"
+        android:layout_height="1dp"
+        android:background="@drawable/bg_glow_divider"
+        android:layout_marginTop="18dp"
         app:layout_constraintTop_toBottomOf="@id/tvSubtitle"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- 进度条 -->
+    <FrameLayout
+        android:id="@+id/progressContainer"
+        android:layout_width="220dp"
+        android:layout_height="3dp"
+        android:background="@drawable/bg_progress_track"
+        android:layout_marginTop="40dp"
+        app:layout_constraintTop_toBottomOf="@id/dividerView"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
-        <ProgressBar android:id="@+id/progressBar"
+
+        <ProgressBar
+            android:id="@+id/progressBar"
             style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="match_parent" android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:progressDrawable="@drawable/progress_gradient"
-            android:max="100" android:progress="0"/>
+            android:max="1000"
+            android:progress="0"/>
     </FrameLayout>
 
-    <TextView android:id="@+id/tvLoading"
-        android:layout_width="wrap_content" android:layout_height="wrap_content"
-        android:text="正在初始化核心模块..." android:textSize="12sp"
-        android:textColor="#6B7AA8" android:letterSpacing="0.05"
+    <!-- 加载文字 -->
+    <TextView
+        android:id="@+id/tvLoading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="正在初始化核心模块..."
+        android:textSize="11sp"
+        android:textColor="#4A6BFF"
+        android:letterSpacing="0.1"
+        android:layout_marginTop="22dp"
         app:layout_constraintTop_toBottomOf="@id/progressContainer"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="20dp"/>
+        app:layout_constraintEnd_toEndOf="parent"/>
 
-    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
-        android:orientation="horizontal" android:layout_marginTop="14dp"
+    <!-- 三点跳动 -->
+    <LinearLayout
+        android:id="@+id/dotsContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="12dp"
         app:layout_constraintTop_toBottomOf="@id/tvLoading"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
+
         <View android:id="@+id/dot1" android:layout_width="6dp" android:layout_height="6dp"
             android:background="@drawable/dot_indicator" android:layout_marginEnd="6dp"/>
         <View android:id="@+id/dot2" android:layout_width="6dp" android:layout_height="6dp"
@@ -76,10 +170,15 @@
             android:background="@drawable/dot_indicator"/>
     </LinearLayout>
 
-    <TextView android:id="@+id/tvVersion"
-        android:layout_width="wrap_content" android:layout_height="wrap_content"
-        android:text="v1.0.0 · Build 2024" android:textSize="10sp"
-        android:letterSpacing="0.2" android:textColor="#4A5578"
+    <!-- 版本号 -->
+    <TextView
+        android:id="@+id/tvVersion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="v2.0.0 · BUILD 2024"
+        android:textSize="9sp"
+        android:letterSpacing="0.3"
+        android:textColor="#4A5578"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
