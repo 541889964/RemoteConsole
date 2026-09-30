@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Remote Slave</string>
+    <string name="acc_desc">用于远程控制设备屏幕</string>
+</resources>

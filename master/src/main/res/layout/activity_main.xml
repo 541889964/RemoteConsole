@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_primary">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:background="@android:color/transparent" app:elevation="0dp">
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent" android:layout_height="?attr/actionBarSize"
+            android:paddingStart="20dp" android:paddingEnd="20dp"
+            app:title="控制台" app:titleTextColor="@color/text_primary"/>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent" android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="vertical" android:padding="20dp">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/bg_card"
+                app:cardCornerRadius="20dp" app:cardElevation="0dp"
+                app:strokeColor="@color/stroke" app:strokeWidth="1dp">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="horizontal" android:padding="20dp"
+                    android:gravity="center_vertical">
+                    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_weight="1" android:orientation="vertical">
+                        <TextView android:text="在线设备" android:textSize="12sp"
+                            android:textColor="@color/text_tertiary" android:letterSpacing="0.1"/>
+                        <TextView android:id="@+id/tvDeviceCount" android:text="0"
+                            android:textSize="36sp" android:textStyle="bold"
+                            android:textColor="@color/text_primary" android:layout_marginTop="4dp"/>
+                    </LinearLayout>
+                    <FrameLayout android:id="@+id/btnScan"
+                        android:layout_width="56dp" android:layout_height="56dp"
+                        android:background="@drawable/bg_btn_scan">
+                        <ImageView android:layout_width="24dp" android:layout_height="24dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_radar" app:tint="@color/accent"/>
+                    </FrameLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView android:text="发现设备" android:textSize="14sp"
+                android:textStyle="bold" android:textColor="@color/text_secondary"
+                android:letterSpacing="0.15" android:layout_marginTop="28dp"
+                android:layout_marginBottom="14dp"/>
+
+            <androidx.recyclerview.widget.RecyclerView android:id="@+id/rvDevices"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"/>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <LinearLayout android:id="@+id/bottomBar"
+        android:layout_width="match_parent" android:layout_height="64dp"
+        android:layout_gravity="bottom" android:orientation="horizontal"
+        android:background="@drawable/bg_bottom_bar"
+        android:paddingStart="20dp" android:paddingEnd="20dp"
+        android:gravity="center_vertical">
+        <LinearLayout android:layout_width="0dp" android:layout_height="match_parent"
+            android:layout_weight="1" android:orientation="vertical" android:gravity="center">
+            <ImageView android:layout_width="22dp" android:layout_height="22dp"
+                android:src="@drawable/ic_console" app:tint="@color/accent"/>
+            <TextView android:text="控制台" android:textSize="10sp"
+                android:textColor="@color/accent" android:layout_marginTop="2dp"/>
+        </LinearLayout>
+        <LinearLayout android:id="@+id/tabCall" android:layout_width="0dp"
+            android:layout_height="match_parent" android:layout_weight="1"
+            android:orientation="vertical" android:gravity="center">
+            <ImageView android:layout_width="22dp" android:layout_height="22dp"
+                android:src="@drawable/ic_call" app:tint="@color/text_tertiary"/>
+            <TextView android:text="通话" android:textSize="10sp"
+                android:textColor="@color/text_tertiary" android:layout_marginTop="2dp"/>
+        </LinearLayout>
+        <LinearLayout android:layout_width="0dp" android:layout_height="match_parent"
+            android:layout_weight="1" android:orientation="vertical" android:gravity="center">
+            <ImageView android:layout_width="22dp" android:layout_height="22dp"
+                android:src="@drawable/ic_settings" app:tint="@color/text_tertiary"/>
+            <TextView android:text="设置" android:textSize="10sp"
+                android:textColor="@color/text_tertiary" android:layout_marginTop="2dp"/>
+        </LinearLayout>
+    </LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
