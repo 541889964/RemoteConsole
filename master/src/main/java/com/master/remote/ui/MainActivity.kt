@@ -86,7 +86,7 @@ class MainActivity : AppCompatActivity() {
     private fun setupRecycler() {
         val rv = findViewById<RecyclerView>(R.id.rvDevices)
         rv.layoutManager = LinearLayoutManager(this)
-        rv.setHasFixedSize(true)
+        
         rv.setItemViewCacheSize(20)
 
         findViewById<View>(R.id.layoutEmpty).visibility = View.VISIBLE
